@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Як працуе AI-пайплайн GustBot — блог</title>
+<meta name="description" content="Тэхнічны разбор архітэктуры GustBot: пайплайн дадзеных, prompt engineering, аркестрацыя задач, адмоваўстойлівасць AI-кантэнту.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#050505; --panel:#111112; --panel-2:#020202; --border:#232325; --border-soft:#343437;
+  --ink:#f2f1ec; --muted:#9a9a9d; --muted-2:#616164; --accent:#d6ff3f; --accent-ink:#10140a;
+  --accent-soft:rgba(214,255,63,0.12); --accent-2:#8a5cff; --code:#7fffd4;
+  --font-display:'Playfair Display', Georgia, serif; --font-body:'Manrope', -apple-system, sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --space-xs:8px; --space-sm:16px; --space-md:24px; --space-lg:40px; --space-xl:64px; --space-2xl:96px; --space-3xl:140px;
+  --ease-out:cubic-bezier(.16,1,.3,1); --ease-in-out:cubic-bezier(.65,0,.35,1);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; overflow-x:clip;}
+body{margin:0; overflow-x:clip; background:var(--paper); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+p{overflow-wrap:anywhere;}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px;}
+::selection{background:var(--accent);color:var(--accent-ink);}
+body::before{content:"";position:fixed;inset:0;z-index:200;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+@media (prefers-reduced-motion: reduce){.hero-glow{display:none;}}
+header{position:sticky; top:0; z-index:60; background:rgba(13,12,12,0.82); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+.wordmark{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.wordmark b{color:var(--ink);font-weight:500;}
+.index-toggle{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding:8px 4px;}
+.index-toggle .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;}
+.nav-right{display:flex;align-items:center;gap:18px;}
+.lang-switch{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;}
+.lang-switch a{color:var(--muted-2);transition:color .2s;}
+.lang-switch a.active{color:var(--accent);pointer-events:none;}
+.lang-switch a:hover{color:var(--ink);}
+.lang-switch span{color:var(--border-soft);}
+.index-overlay{position:fixed; inset:0; z-index:70; background:#0d0c0cf2; backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .35s var(--ease-out);}
+.index-overlay.open{opacity:1;pointer-events:auto;}
+.index-list{width:100%;max-width:640px;padding:0 28px;}
+.index-list a{display:flex;align-items:baseline;gap:20px;padding:16px 4px;border-bottom:1px solid var(--border);font-family:var(--font-display);font-size:clamp(24px,5vw,38px);font-weight:420;color:var(--muted);transition:color .2s;}
+.index-list a:hover{color:var(--accent);}
+.index-list a span{font-family:var(--font-mono);font-size:13px;color:var(--muted-2);}
+.index-close{position:absolute;top:22px;right:28px;background:none;border:none;color:var(--muted);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+.index-close:hover{color:var(--ink);}
+.breadcrumb{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--muted-2);margin-bottom:var(--space-lg);display:flex;gap:8px;flex-wrap:wrap;}
+.breadcrumb a{color:var(--muted);border-bottom:1px solid transparent;transition:border-color .2s,color .2s;}
+.breadcrumb a:hover{color:var(--accent);border-color:var(--accent);}
+.breadcrumb span{color:var(--muted-2);}
+.page-hero{padding:var(--space-2xl) 0 var(--space-xl);}
+.split{border-top:1px solid var(--border);padding:var(--space-2xl) 0;}
+.split .wrap{display:grid;grid-template-columns:280px 1fr;gap:var(--space-2xl);align-items:start;}
+.article{max-width:680px;}
+.article .meta{font-family:var(--font-mono);font-size:12px;color:var(--muted-2);margin-bottom:var(--space-md);}
+.article h1{font-family:var(--font-display);font-weight:400;font-style:normal;font-size:clamp(36px,6vw,58px);line-height:0.96;letter-spacing:-0.01em;margin:0;max-width:960px;}
+.article > p{color:var(--muted);font-size:16.5px;line-height:1.85;margin:0 0 26px;}
+.article h2{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:clamp(24px,3vw,30px);color:var(--ink);margin:var(--space-xl) 0 16px;}
+.article ul, .article ol{color:var(--muted);font-size:15.5px;line-height:1.85;padding-left:22px;margin:0 0 26px;}
+.article li{margin-bottom:8px;}
+.article strong{color:var(--ink);font-weight:600;}
+.cta-block{border-left:2px solid var(--accent);background:var(--panel);padding:28px 30px;margin-top:var(--space-2xl);}
+.cta-block h3{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 12px;}
+.cta-block p{color:var(--muted);font-size:15px;line-height:1.75;margin:0 0 16px;}
+.cta-block a.btn-link{font-family:var(--font-mono);font-size:12.5px;color:var(--ink);border-bottom:1px solid var(--border-soft);padding-bottom:2px;transition:color .2s,border-color .2s;}
+.cta-block a.btn-link:hover{color:var(--accent);border-color:var(--accent);}
+footer{border-top:1px solid var(--border);padding:28px 0;}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+footer p{color:var(--muted-2);font-size:12px;font-family:var(--font-mono);margin:0;}
+footer .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+footer .footer-links a{transition:color .2s;}
+footer .footer-links a:hover{color:var(--accent);}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);}
+.reveal.in{opacity:1;transform:translateY(0);}
+@media (max-width:900px){ .split .wrap{grid-template-columns:1fr;gap:var(--space-lg);} }
+@media (max-width:600px){ h1{font-size:clamp(38px,11vw,56px);} }
+#bg3d{position:fixed;inset:0;z-index:-1;display:block;background:var(--paper);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="../../index.html" class="wordmark">Portfolio AI / Motion</a>
+      <div class="nav-right">
+        <div class="lang-switch">
+          <a href="../../../blog/kak-ustroen-ai-pipeline-gustbot/index.html">RU</a><span>·</span>
+          <a href="../../../en/blog/how-gustbot-ai-pipeline-works/index.html">EN</a><span>·</span>
+          <a href="./index.html" class="active">BE</a>
+        </div>
+        <button class="index-toggle" id="indexToggle">
+          <span class="dot"></span> Index
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="index-overlay" id="indexOverlay">
+  <button class="index-close" id="indexClose">Закрыць ✕</button>
+  <nav class="index-list">
+    <a href="../../index.html#top" data-close><span>00</span> Пачатак</a>
+    <a href="../../services/index.html" data-close><span>01</span> Паслугі</a>
+    <a href="../../index.html#gustbot" data-close><span>02</span> GustBot</a>
+    <a href="../../index.html#igaming" data-close><span>03</span> iGaming</a>
+    <a href="../../index.html#ai-engineering" data-close><span>04</span> AI Architecture</a>
+    <a href="../index.html" data-close><span>05</span> Блог</a>
+    <a href="../../index.html#contact" data-close><span>06</span> Кантакты</a>
+  </nav>
+</div>
+
+<main>
+  <section class="page-hero" style="padding-bottom:0;">
+    <div class="wrap">
+      <div class="breadcrumb">
+        <a href="../../index.html">Галоўная</a><span>/</span>
+        <a href="../index.html">Блог</a><span>/</span>
+        Як працуе AI-пайплайн GustBot
+      </div>
+    </div>
+  </section>
+
+  <section class="split" style="border-top:none;padding-top:0;">
+    <div class="wrap" style="display:block;">
+      <article class="article reveal">
+        <div class="meta">20 ліпеня 2026 · AI Engineering · чытаць 6 хв</div>
+        <h1>Як працуе AI-пайплайн GustBot</h1>
+
+        <p>
+          GustBot — Telegram-бот, які я спраектаваў і рэалізаваў самастойна: ад
+          архітэктуры да продакшна. Ён замяняе ручны маніторынг дзясяткаў
+          фінансавых крыніц адным каналам — AI аналізуе рынак у рэальным часе і
+          выдае структураваны вынік за секунды. У гэтым пасце — як гэта
+          ўладкована знутры, без маркетынгавай абгорткі.
+        </p>
+
+        <h2>Навошта наогул</h2>
+        <p>
+          Трэйдары і інвестары фізічна не паспяваюць сачыць за дзясяткамі крыніц
+          адначасова — рынак рэагуе хутчэй, чым чалавек можа прачытаць і
+          супаставіць навіны. Задача была не «зрабіць яшчэ аднаго навіннага
+          бота», а забраць рутыну цалкам: збор, аналіз, вывад — і пакінуць
+          толькі тое, што рэальна рухае цану.
+        </p>
+
+        <h2>Пайплайн апрацоўкі дадзеных</h2>
+        <p>
+          У аснове — шматступеньчаты канвеер: збор рынкавых дадзеных →
+          нармалізацыя і дэдуплікацыя → AI-апрацоўка → публікацыя. Кожны этап
+          ізаляваны ад суседніх. Гэта прынцыпова: калі адна крыніца дадзеных
+          лягла, гэта не павінна абрушыць увесь ланцужок — астатнія этапы
+          працягваюць працаваць на тых дадзеных, што ўжо ёсць.
+        </p>
+
+        <h2>Prompt engineering — не адзін промпт на ўсё</h2>
+        <p>
+          Для кожнай тэматыкі — крыпта, золата, макра, геапалітыка — у LLM
+          асобная роля са сваім стылем і фокусам аналізу. Гэта было
+          усвядомленае рашэнне: універсальны промпт на ўсе тэмы дае ўсярэдніны,
+          невыразны вынік. Асобна я спраектаваў promt-пайплайн для рэгулярнай
+          генерацыі кантэнту ў канал FLUX так, каб тэмы не паўтараліся дзень у
+          дзень — мадэль «памятае», што ўжо публікавалася.
+        </p>
+
+        <h2>Тэхнічны аналіз і алерты</h2>
+        <p>
+          Па ключавых актывах (BTC, ETH, золата, нафта, S&amp;P 500, індэкс
+          долара) бот лічыць класічныя індыкатары — RSI, EMA, MACD, узроўні
+          падтрымкі/супраціву — і фарміруе выніковы сігнал: бычы, мядзведжы ці
+          нейтральны. Асобна — цэнавыя алерты: карыстальнік задае ўмову
+          («паведаміце, калі золата прабье гэту адзнаку»), бот сочыць за цаной
+          і апавяшчае аўтаматычна, без дадатковых дзеянняў.
+        </p>
+
+        <h2>Аркестрацыя фонавых задач</h2>
+        <p>
+          Пад капотам — дзясятак незалежных перыядычных джобаў: ад праверкі
+          алертаў кожныя пяць хвілін да генерацыі кантэнту раз у суткі. Усе
+          яны працуюць на адзіным плануавальніку, не блакуючы адно аднаго і
+          асноўны паток апрацоўкі паведамленняў бота. Гэта было важней, чым
+          здаецца на старце — без ізаляцыі джобаў адна цяжкая задача здольная
+          «падвесіць» водгук бота карыстальніку.
+        </p>
+
+        <h2>Адмоваўстойлівасць — самае недаацэненае месца</h2>
+        <p>
+          AI-згенераваны тэкст непрадказальны: мадэль можа выдаць некарэктна
+          сфармаваны адказ у непадыходны момант — прама перад публікацыяй у
+          канал. Таму я рэалізаваў аўтаматычны fallback: сістэма не губляе пост
+          цалкам, а карэктна дэградуе і ўсё роўна дастаўляе кантэнт
+          карыстальніку. Асобна — rate-limiting і абарона ад флуду/абузу на
+          ўзроўні апрацоўкі ўваходных паведамленняў.
+        </p>
+
+        <h2>Маніторынг</h2>
+        <p>
+          Бот паведамляе мне пра збоі ў рэальным часе — недаступнасць крыніцы
+          дадзеных, памылкі API — што дазваляе рэагаваць раней, чым гэта
+          заўважаць карыстальнікі бота. Для аўтаномнай сістэмы, якая працуе без
+          пастаяннага нагляду, гэта не опцыя, а абавязковая ўмова.
+        </p>
+
+        <h2>Вынік</h2>
+        <p>
+          GustBot працуе ў продзе 24/7, цалкам аўтаматызаваны — ад збору
+          дадзеных да публікацыі ў канал — і замяняе ручны маніторынг дзясяткаў
+          крыніц адным каналам з гатовым вывадам. Архітэктура спраектавана так,
+          каб вытрымліваць непрадказальнасць AI-кантэнту і збоі крыніц дадзеных
+          без ручнога ўмяшання.
+        </p>
+
+        <div class="cta-block">
+          <h3>Патрэбны падобны прадукт?</h3>
+          <p>Калі задача — не разавы крэатыў, а працуючая аўтаномная AI-сістэма, паглядзіце фармат «AI Product Development» на старонцы паслуг.</p>
+          <a class="btn-link" href="../../services/index.html">Перайсці да паслуг →</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 · AI Content Engineering &amp; Motion Design</p>
+    <div class="footer-links">
+      <a href="../../services/index.html">Паслугі</a>
+      <a href="../index.html">Блог</a>
+      <a href="../../index.html#contact">Кантакты</a>
+      <a href="https://t.me/Y_NET3" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://www.linkedin.com/in/yahor-kaminsky-0b2b16238/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#">ArtStation</a>
+      <a href="https://www.behance.net/805f56c8" target="_blank" rel="noopener">Behance</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('indexToggle');
+  const overlay = document.getElementById('indexOverlay');
+  const closeBtn = document.getElementById('indexClose');
+  const openOverlay = () => overlay.classList.add('open');
+  const closeOverlay = () => overlay.classList.remove('open');
+  toggle.addEventListener('click', openOverlay);
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', closeOverlay));
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

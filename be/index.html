@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="be">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Content Engineer &amp; Motion Designer — партфоліа</title>
+<meta name="description" content="AI Content Engineer &amp; Motion Designer. Генератыўныя відэапайплайны, кансістэнтныя AI-персанажы, аўтаномныя AI-прадукты і крэатыў для iGaming.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#050505; --panel:#111112; --panel-2:#020202; --border:#232325; --border-soft:#343437;
+  --ink:#f2f1ec; --muted:#9a9a9d; --muted-2:#616164; --accent:#d6ff3f; --accent-ink:#10140a;
+  --accent-soft:rgba(214,255,63,0.12); --accent-2:#8a5cff; --code:#7fffd4;
+  --font-display:'Playfair Display', Georgia, serif; --font-body:'Manrope', -apple-system, sans-serif;
+  --font-mono:'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --space-xs:8px; --space-sm:16px; --space-md:24px; --space-lg:40px; --space-xl:64px; --space-2xl:96px; --space-3xl:140px;
+  --ease-out:cubic-bezier(.16,1,.3,1); --ease-in-out:cubic-bezier(.65,0,.35,1);
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth; overflow-x:clip;}
+body{margin:0; overflow-x:clip; background:var(--paper); color:var(--ink); font-family:var(--font-body); font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+p{overflow-wrap:anywhere;}
+.wrap{max-width:1240px;margin:0 auto;padding:0 28px;}
+::selection{background:var(--accent);color:var(--accent-ink);}
+body::before{content:"";position:fixed;inset:0;z-index:200;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
+@media (prefers-reduced-motion: reduce){.hero-glow{display:none;}}
+header{position:sticky; top:0; z-index:60; background:rgba(13,12,12,0.82); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0;}
+.wordmark{font-family:var(--font-mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.wordmark b{color:var(--ink);font-weight:500;}
+.index-toggle{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);padding:8px 4px;}
+.index-toggle .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;}
+.nav-right{display:flex;align-items:center;gap:18px;}
+.lang-switch{display:flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;}
+.lang-switch a{color:var(--muted-2);transition:color .2s;}
+.lang-switch a.active{color:var(--accent);pointer-events:none;}
+.lang-switch a:hover{color:var(--ink);}
+.lang-switch span{color:var(--border-soft);}
+.index-overlay{position:fixed; inset:0; z-index:70; background:#0d0c0cf2; backdrop-filter:blur(6px); display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .35s var(--ease-out);}
+.index-overlay.open{opacity:1;pointer-events:auto;}
+.index-list{width:100%;max-width:640px;padding:0 28px;}
+.index-list a{display:flex;align-items:baseline;gap:20px;padding:16px 4px;border-bottom:1px solid var(--border);font-family:var(--font-display);font-size:clamp(24px,5vw,38px);font-weight:420;color:var(--muted);transition:color .2s;}
+.index-list a:hover{color:var(--accent);}
+.index-list a span{font-family:var(--font-mono);font-size:13px;color:var(--muted-2);}
+.index-close{position:absolute;top:22px;right:28px;background:none;border:none;color:var(--muted);font-family:var(--font-mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;}
+.index-close:hover{color:var(--ink);}
+.hero{padding:var(--space-3xl) 0 var(--space-2xl);position:relative;overflow:hidden;}
+.hero-glow{position:absolute;inset:-20% -10% auto -10%;height:640px;pointer-events:none;z-index:0;background:radial-gradient(480px circle at var(--mx,70%) var(--my,20%), rgba(214,255,63,0.10), transparent 60%),radial-gradient(420px circle at 15% 60%, rgba(138,92,255,0.12), transparent 60%);filter:blur(10px);transition:background-position .2s var(--ease-out);}
+.hero .wrap{position:relative;z-index:1;}
+.hero-meta{font-family:var(--font-mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted-2);margin-bottom:var(--space-lg);}
+.hero-meta span{color:var(--accent);}
+h1{font-family:var(--font-display);font-weight:400;font-style:normal;font-size:clamp(48px,9vw,108px);line-height:0.96;letter-spacing:-0.01em;margin:0;max-width:960px;}
+h1 em{font-style:italic;color:var(--accent);}
+.hero-lead{max-width:480px;margin:var(--space-lg) 0 0 auto;font-size:17px;line-height:1.75;color:var(--muted);padding-left:var(--space-md);border-left:1px solid var(--border-soft);}
+.hero-rule{margin-top:var(--space-xl);border:none;border-top:1px solid var(--border);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:var(--space-md);font-family:var(--font-mono);font-size:12.5px;color:var(--muted-2);}
+.hero-tags b{color:var(--muted);font-weight:500;}
+.tool-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+.tool-chips .chip{font-family:var(--font-mono);font-size:11.5px;color:var(--ink);border:1px solid var(--border-soft);padding:5px 11px;transition:border-color .2s,color .2s;}
+.tool-chips .chip:hover{border-color:var(--accent);color:var(--accent);}
+.tool-chips .chip.chip-3d{border-color:var(--accent-2);color:var(--accent-2);}
+.tool-chips .chip.chip-3d:hover{border-color:var(--accent-2);color:var(--accent-2);}
+.reel-block{margin-top:var(--space-2xl);display:flex;justify-content:center;}
+.reel-row{display:flex;gap:24px;overflow-x:auto;max-width:100%;padding-bottom:6px;}
+.reel-item{flex:0 0 auto;width:min(760px,86vw);}
+.reel{width:100%;max-width:760px;aspect-ratio:16/9;background:var(--panel);border:1px solid var(--border);position:relative;overflow:hidden;}
+.reel iframe{width:100%;height:100%;border:0;display:block;}
+.reel .placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted-2);font-family:var(--font-mono);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;}
+.reel-caption{max-width:760px;margin:14px auto 0;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--muted-2);letter-spacing:.04em;}
+.split{border-top:1px solid var(--border);padding:var(--space-2xl) 0;}
+.split .wrap{display:grid;grid-template-columns:280px 1fr;gap:var(--space-2xl);align-items:start;}
+.split.reverse .wrap{grid-template-columns:1fr 280px;}
+.split.reverse .rail{order:2;}
+.split.reverse .content{order:1;}
+.rail{position:sticky;top:96px;}
+.rail .num{font-family:var(--font-mono);font-size:14px;color:var(--accent);letter-spacing:.05em;display:block;margin-bottom:14px;}
+.rail .kicker{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-bottom:10px;}
+.rail h2{font-family:var(--font-display);font-weight:400;font-style:italic;font-size:clamp(28px,3.4vw,38px);line-height:1.1;margin:0 0 18px;color:var(--ink);}
+.rail p{color:var(--muted);font-size:14.5px;line-height:1.7;margin:0 0 18px;}
+.rail .tags{display:flex;flex-wrap:wrap;gap:7px;}
+.rail .tag{font-family:var(--font-mono);font-size:11px;color:var(--muted);border:1px solid var(--border-soft);padding:4px 9px;}
+.rail .links{display:flex;flex-direction:column;gap:8px;margin-top:20px;}
+.rail .links a{font-family:var(--font-mono);font-size:12.5px;color:var(--ink);border-bottom:1px solid var(--border-soft);padding-bottom:2px;width:fit-content;transition:border-color .2s,color .2s;}
+.rail .links a:hover{color:var(--accent);border-color:var(--accent);}
+.content > * + *{margin-top:var(--space-lg);}
+.block h3{font-family:var(--font-mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted-2);margin:0 0 14px;font-weight:500;}
+.block p{color:var(--muted);font-size:15.5px;line-height:1.8;margin:0;max-width:700px;}
+.block p.note{font-style:italic;color:var(--muted-2);font-size:13.5px;}
+.feat-list{display:flex;flex-direction:column;}
+.feat-row{display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-top:1px solid var(--border);}
+.feat-row:last-child{border-bottom:1px solid var(--border);}
+.feat-row h4{font-size:15px;font-weight:600;margin:0;color:var(--ink);}
+.feat-row p{color:var(--muted);font-size:14.5px;line-height:1.7;margin:0;max-width:640px;}
+.eng-list{display:flex;flex-direction:column;gap:0;}
+.eng-item{display:grid;grid-template-columns:44px 1fr;gap:18px;padding:22px 0;border-top:1px solid var(--border);}
+.eng-item:last-child{border-bottom:1px solid var(--border);}
+.eng-item .n{font-family:var(--font-mono);color:var(--accent);font-size:13px;padding-top:2px;}
+.eng-item b{display:block;font-size:15.5px;font-weight:600;margin-bottom:6px;color:var(--ink);}
+.eng-item p{color:var(--muted);font-size:14.5px;line-height:1.7;margin:0;max-width:680px;}
+.result-box{border-left:2px solid var(--accent); background:var(--panel); padding:26px 28px;}
+.result-box p{color:var(--muted);font-size:15px;line-height:1.75;margin:0;}
+.code-box{background:var(--panel-2);border:1px solid var(--border);padding:22px;font-family:var(--font-mono);font-size:12.5px;line-height:1.65;color:var(--code);overflow-x:auto;}
+.code-box .c1{color:var(--muted-2);}
+.shot{aspect-ratio:4/3;background:var(--panel);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted-2);font-family:var(--font-mono);font-size:12px;text-align:center;padding:20px;}
+.shot-gallery{display:flex;flex-direction:column;gap:18px;}
+.shot-figure{margin:0;}
+.shot-figure img{width:100%;display:block;border:1px solid var(--border);}
+.shot-caption{margin-top:10px;font-family:var(--font-mono);font-size:11.5px;color:var(--muted-2);letter-spacing:.03em;line-height:1.55;}
+.media-frame{aspect-ratio:16/10;background:var(--panel);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted-2);font-family:var(--font-mono);font-size:12px;text-transform:uppercase;letter-spacing:.05em;text-align:center;padding:20px;}
+.letter{border-top:1px solid var(--border);padding:var(--space-2xl) 0;}
+.letter .wrap{max-width:640px;}
+.letter .num{font-family:var(--font-mono);font-size:14px;color:var(--accent);}
+.letter h2{font-family:var(--font-display);font-style:italic;font-weight:400;font-size:clamp(34px,4.6vw,52px);margin:16px 0 28px;line-height:1.1;}
+.letter p{color:var(--muted);font-size:16.5px;line-height:1.85;margin:0 0 22px;}
+.letter .sign{font-family:var(--font-display);font-style:italic;font-size:20px;color:var(--ink);margin-top:8px;}
+.letter .contact-inline{display:flex;flex-wrap:wrap;gap:6px 4px;margin-top:24px;font-family:var(--font-mono);font-size:13.5px;}
+.letter .contact-inline a{color:var(--accent);border-bottom:1px solid transparent;transition:border-color .2s;}
+.letter .contact-inline a:hover{border-color:var(--accent);}
+.letter .contact-inline span{color:var(--muted-2);}
+footer{border-top:1px solid var(--border);padding:28px 0;}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+footer p{color:var(--muted-2);font-size:12px;font-family:var(--font-mono);margin:0;}
+footer .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+footer .footer-links a{transition:color .2s;}
+footer .footer-links a:hover{color:var(--accent);}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);}
+.reveal.in{opacity:1;transform:translateY(0);}
+@media (max-width:900px){
+  .split .wrap, .split.reverse .wrap{grid-template-columns:1fr;gap:var(--space-lg);}
+  .split.reverse .rail{order:1;} .split.reverse .content{order:2;}
+  .rail{position:static;} .feat-row{grid-template-columns:1fr;gap:8px;}
+  .eng-item{grid-template-columns:28px 1fr;}
+  .reel-block{justify-content:center;} .reel-item{width:100%;} .hero-lead{margin-left:0;}
+}
+@media (max-width:600px){ .hero{padding:var(--space-2xl) 0 var(--space-xl);} h1{font-size:clamp(38px,11vw,56px);} }
+#bg3d{position:fixed;inset:0;z-index:-1;display:block;background:var(--paper);}
+</style>
+</head>
+<body>
+
+<canvas id="bg3d"></canvas>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#top" class="wordmark">Portfolio AI / Motion</a>
+      <div class="nav-right">
+        <div class="lang-switch">
+          <a href="../index.html">RU</a><span>·</span>
+          <a href="../en/index.html">EN</a><span>·</span>
+          <a href="#top" class="active">BE</a>
+        </div>
+        <button class="index-toggle" id="indexToggle">
+          <span class="dot"></span> Index
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="index-overlay" id="indexOverlay">
+  <button class="index-close" id="indexClose">Закрыць ✕</button>
+  <nav class="index-list">
+    <a href="#top" data-close><span>00</span> Пачатак</a>
+    <a href="services/index.html"><span>01</span> Паслугі</a>
+    <a href="#gustbot" data-close><span>02</span> GustBot</a>
+    <a href="#igaming" data-close><span>03</span> iGaming</a>
+    <a href="#ai-engineering" data-close><span>04</span> AI Architecture</a>
+    <a href="blog/index.html"><span>05</span> Блог</a>
+    <a href="#contact" data-close><span>06</span> Кантакты</a>
+  </nav>
+</div>
+
+<main id="top">
+
+  <section class="hero" id="heroSection">
+    <div class="hero-glow" id="heroGlow"></div>
+    <div class="wrap">
+      <div class="hero-meta"><span>●</span> Адкрыты для праектаў — 2026</div>
+      <h1>AI Content Engineer<br>&amp; <em>Motion Designer</em></h1>
+      <p class="hero-lead">
+        Праектую генератыўныя відэапайплайны, кансістэнтных AI-персанажаў і
+        аўтаномныя AI-прадукты. Досвед у iGaming — ад промакрэатыву да сістэм,
+        якія працуюць у продзе без ручнога ўмяшання.
+      </p>
+      <hr class="hero-rule">
+      <div class="hero-tags">
+        <span><b>Фокус —</b> iGaming · Motion Design · AI Pipelines</span>
+      </div>
+      <div class="tool-chips">
+        <span class="chip">ComfyUI</span>
+        <span class="chip">Kling</span>
+        <span class="chip">Runway</span>
+        <span class="chip">Midjourney</span>
+        <span class="chip">Stable Diffusion</span>
+        <span class="chip">ElevenLabs</span>
+        <span class="chip">Python</span>
+        <span class="chip">Telegram Bot API</span>
+        <span class="chip">After Effects</span>
+        <span class="chip">Premiere Pro</span>
+        <span class="chip chip-3d">Blender</span>
+        <span class="chip chip-3d">Cinema 4D</span>
+        <span class="chip chip-3d">Unreal Engine 5</span>
+      </div>
+
+      <div class="reel-block">
+        <div class="reel-row">
+          <div class="reel-item">
+            <div class="reel">
+              <iframe src="https://player.vimeo.com/video/1211593334" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="reel-caption">Шоўрыл — 00:49</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gustbot" class="split reveal">
+    <div class="wrap">
+      <div class="rail">
+        <span class="num">01</span>
+        <div class="kicker">Флагманскі праект</div>
+        <h2>GustBot — AI-аналіз рынку для Telegram</h2>
+        <p>
+          Telegram-бот і медыяпраект, які замяняе гадзіны маніторынгу фінансавых
+          навін адным каналам: AI аналізуе рынак у рэальным часе і выдае
+          структураваны вынік за секунды.
+        </p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">Telegram Bot API</span>
+          <span class="tag">LLM / Prompt Eng.</span><span class="tag">Async orchestration</span>
+        </div>
+        <div class="links">
+          <a href="#">Адкрыць бота →</a>
+          <a href="#">Канал FLUX →</a>
+          <a href="blog/yak-pracue-ai-pipeline-gustbot/index.html">Тэхнічны разбор у блогу →</a>
+          <a href="services/index.html">Патрэбна нешта падобнае? →</a>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="block">
+          <h3>Задача</h3>
+          <p>
+            Трэйдары і інвестары фізічна не паспяваюць сачыць за дзясяткамі
+            крыніц адначасова — рынак рэагуе хутчэй, чым чалавек можа прачытаць
+            і супаставіць навіны. Мэта была не «зрабіць яшчэ аднаго навіннага
+            бота», а забраць рутыну цалкам.
+          </p>
+        </div>
+
+        <div class="block">
+          <h3>Што робіць бот</h3>
+          <div class="feat-list">
+            <div class="feat-row">
+              <h4>AI-аналіз рынку</h4>
+              <p>Сочыць за крыпта, золатам, нафтай, форэксам і макраэканомікай у рэальным часе і ператварае паток навін у кароткі, зразумелы вывад — што адбылося і чаму гэта важна.</p>
+            </div>
+            <div class="feat-row">
+              <h4>Тэхнічны аналіз</h4>
+              <p>Для ключавых актываў (BTC, ETH, золата, нафта, S&amp;P 500, індэкс долара) лічыць RSI, EMA, MACD, узроўні падтрымкі/супраціву і фарміруе сігнал: бычы / мядзведжы / нейтральны.</p>
+            </div>
+            <div class="feat-row">
+              <h4>Маніторынг заяваў</h4>
+              <p>Асобна сочыць за публічнымі заявамі ключавых фігур рынку — кіраўнікоў цэнтрабанкаў, буйных інвестараў, рэгулятараў — з ацэнкай верагоднага ўплыву на актывы.</p>
+            </div>
+            <div class="feat-row">
+              <h4>Цэнавыя алерты</h4>
+              <p>Карыстальнік задае ўмову («паведаміце, калі золата прабье гэты ўзровень») — бот сочыць за цаной і апавяшчае аўтаматычна.</p>
+            </div>
+            <div class="feat-row">
+              <h4>Канал FLUX</h4>
+              <p>Бот цалкам аўтаномна вядзе звязаны Telegram-канал: штодзённыя рынкавыя зводкі, тыднёвы геапалітычны дайджэст і разборы ключавых падзей — без удзелу чалавека ў публікацыі.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="block">
+          <h3>Архітэктура і інжынерныя рашэнні</h3>
+          <p class="note">Спраектаваў і рэалізаваў сістэму самастойна — ад архітэктуры да продакшна.</p>
+          <div class="eng-list">
+            <div class="eng-item">
+              <span class="n">01</span>
+              <div><b>Пайплайн апрацоўкі дадзеных</b><p>Шматступеньчаты канвеер: збор рынкавых дадзеных → нармалізацыя і дэдуплікацыя → AI-апрацоўка → публікацыя. Кожны этап ізаляваны — збой аднаго не абрушвае ўвесь ланцужок.</p></div>
+            </div>
+            <div class="eng-item">
+              <span class="n">02</span>
+              <div><b>Prompt engineering пад задачу</b><p>Для кожнай тэматыкі — крыпта, золата, макра, геапалітыка — у LLM асобная роля са сваім стылем, замест універсальнага промпту на ўсё. Асобны promt-пайплайн для рэгулярнага кантэнту канала, каб тэмы не паўтараліся дзень у дзень.</p></div>
+            </div>
+            <div class="eng-item">
+              <span class="n">03</span>
+              <div><b>Аркестрацыя фонавых задач</b><p>Дзясятак незалежных перыядычных джобаў (ад праверкі алертаў кожныя пяць хвілін да генерацыі кантэнту раз у суткі) працуюць на адным плануавальніку, не блакуючы адно аднаго і асноўны паток апрацоўкі паведамленняў бота.</p></div>
+            </div>
+            <div class="eng-item">
+              <span class="n">04</span>
+              <div><b>Адмоваўстойлівасць</b><p>Галоўнае пытанне да любога AI-прадукту ў продзе: «а што калі мадэль памыліцца?» Аўтаматычны fallback апрацоўвае некарэктна сфармаваны AI-тэкст у момант публікацыі — сістэма не губляе пост, а карэктна дэградуе і працягвае працаваць без ручнога ўмяшання. Rate-limiting і абарона ад флуду/абузу рэалізаваны асобна.</p></div>
+            </div>
+            <div class="eng-item">
+              <span class="n">05</span>
+              <div><b>Маніторынг і самадыягностыка</b><p>Бот паведамляе ўладальніку пра збоі ў рэальным часе (недаступнасць крыніц дадзеных, памылкі API), што дазваляе выправіць праблему раней, чым яе заўважаць карыстальнікі.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-box">
+          <h3 style="margin-bottom:10px;">Вынік</h3>
+          <p>
+            GustBot працуе ў продзе 24/7, цалкам аўтаматызаваны — ад збору дадзеных
+            да публікацыі ў канал — замяняючы ручны маніторынг дзясяткаў крыніц
+            адным каналам з гатовым вывадам. Архітэктура спраектавана так, каб
+            вытрымліваць непрадказальнасць AI-кантэнту і збоі крыніц дадзеных без
+            ручнога ўмяшання.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="igaming" class="split reveal">
+    <div class="wrap">
+      <div class="rail">
+        <span class="num">02</span>
+        <div class="kicker">Досвед</div>
+        <h2>iGaming &amp; Performance Creative</h2>
+        <p>1 год 9 месяцаў у перформанс-маркетынгу: відэа-крэатыў, UI і AI-генерацыі для гемблінг-, бэтынг- і фінтэх-брэндаў — пад задачы баінг-каманды.</p>
+        <div class="links">
+          <a href="services/index.html">Замовіць падобны крэатыў →</a>
+        </div>
+      </div>
+      <div class="content">
+        <div class="block">
+          <h3>EVAMOBI — Motion Designer</h3>
+          <p class="note" style="margin-bottom:14px;">Ліпень 2025 — студзень 2026 · агенцтва мабільнага маркетынгу, вертыкалі Betting, Gambling, Fintech, Ed Tech</p>
+          <div class="feat-list">
+            <div class="feat-row">
+              <h4>Відэа-крэатыў</h4>
+              <p>Ролікі для гемблінг-, бэтынг- і крыпта-вертыкаляў — ад ідэі да фінальнага рэндэру, пад перформанс-метрыкі баінг-каманды.</p>
+            </div>
+            <div class="feat-row">
+              <h4>AI-інструменты</h4>
+              <p>ElevenLabs — агучванне, Synclabs — сінхранізацыя губ, Freepik і Stable Diffusion — генерацыя візуальных асэтаў пад крэатыў.</p>
+            </div>
+            <div class="feat-row">
+              <h4>UI / графіка</h4>
+              <p>Адрысоўка банераў, іконак, слотаў і колаў фартуны — пад брэндбук канкрэтнага прадукту.</p>
+            </div>
+            <div class="feat-row">
+              <h4>Працэс</h4>
+              <p>Удзел у брэйнштормах і генерацыя ідэй крэатываў разам з камандай баінга — адразу з улікам CTR і CPA.</p>
+            </div>
+          </div>
+        </div>
+        <div class="block">
+          <h3>UniaFF — AI Video Editor</h3>
+          <p class="note" style="margin-bottom:14px;">Жнівень 2023 — верасень 2024 · перформанс-монтаж па ТЗ баераў</p>
+          <p>
+            Стварэнне відэаролікаў з выкарыстаннем AI па заданнях баераў — рэклама БАДаў і тавараў
+            для дому. Хуткі монтаж пад тэсты гіпотэз: некалькі варыяцый ролікa на адну задачу,
+            з фокусам на хуткасць продакшну без страты якасці.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai-engineering" class="split reverse reveal">
+    <div class="wrap">
+      <div class="rail">
+        <span class="num">03</span>
+        <div class="kicker">Пад капотам</div>
+        <h2>AI Architecture &amp; Virtual Models</h2>
+        <p>Як пабудаваны пайплайны генерацыі, як дасягаецца кансістэнтнасць AI-персанажаў, і як кантралююцца рух, святло і кампазіцыя.</p>
+        <p style="font-style:italic;color:var(--muted-2);font-size:13.5px;">
+          Не «націснуў кнопку — атрымаў вынік»: за кожнай генерацыяй — кантраляваны
+          пайплайн і ручны art direction на кожным этапе.
+        </p>
+      </div>
+      <div class="content">
+        <div class="block">
+          <h3>ComfyUI і кантроль руху</h3>
+          <div class="shot-gallery">
+            <figure class="shot-figure">
+              <img src="../media/comfyui-workflow-detail.jpg" alt="Нод-граф ComfyUI: генерацыя партрэта, Apply PuLID Flux, Pose/Depth ControlNet" loading="lazy">
+            </figure>
+            <div class="shot-caption">Portrait Creation → Apply PuLID Flux (кансістэнтнасць твару) → Pose/Depth ControlNet → KSampler → Decode VAE.</div>
+            <figure class="shot-figure">
+              <img src="../media/comfyui-workflow-overview.jpg" alt="Поўная схема пайплайна ComfyUI цалкам" loading="lazy">
+            </figure>
+            <div class="shot-caption">Поўны пайплайн цалкам: Loaders → Settings → Controlnets → Sampling → Upscaling → Detailing.</div>
+          </div>
+          <p style="margin-top:14px;">Кастомныя workflow для поўнага кантролю кампазіцыі, святла і перадачы руху з рэферэнснага відэа.</p>
+        </div>
+        <div class="block">
+          <h3>Структураваныя промпты і Character Bible</h3>
+          <div class="code-box"><pre><span class="c1">// character_bible.json</span>
+{
+  "model_profile": "virtual_influencer_core",
+  "environment_setup": {
+    "location": "studio_interior",
+    "lighting": "soft_key_dramatic_fill",
+    "details": ["skin_texture", "fabric_realism"]
+  },
+  "motion_data": {
+    "source": "reference_clip.mp4",
+    "match_movements": true
+  },
+  "bible_rules": [
+    "maintain_facial_consistency",
+    "strict_proportions",
+    "no_off-brand_styling"
+  ]
+}</pre></div>
+          <p style="margin-top:14px;">Звод правіл для захавання кансістэнтнасці AI-персанажа паміж генерацыямі: знешні выгляд, святло, прапорцыі, паводзіны.</p>
+          <figure class="shot-figure" style="margin-top:14px;">
+            <img src="../media/ai-character-consistency.jpg" alt="Адзін і той жа AI-персанаж у розных позах, лакацыях і строях" loading="lazy">
+          </figure>
+          <div class="shot-caption">Вынік: адзін і той жа персанаж — твар, цела, стыль — кансістэнтны ў дзясятках розных сцэн, поз і вобразаў.</div>
+        </div>
+        <div class="block">
+          <h3>3D-пайплайн: Blender · Cinema 4D · Unreal Engine 5</h3>
+          <div class="reel" style="margin:4px 0 16px;">
+            <iframe src="https://player.vimeo.com/video/1211600698" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <p class="note" style="margin-bottom:14px;">Праект з курса «Мастэрская Ісаева» (Моушен 5.0) — сцэна з тэлепортам і туманнасцямі.</p>
+          <div class="reel" style="margin:4px 0 16px;">
+            <iframe src="https://player.vimeo.com/video/1109718142" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <p class="note" style="margin-bottom:14px;">«Betman» — кінематаграфічная сцэна, цалкам пабудаваная і адрэндараная ў рэальным часе на Unreal Engine 5.</p>
+          <div class="feat-list">
+            <div class="feat-row">
+              <h4>Мадэлінг і рэндэр</h4>
+              <p>Cinema 4D з рэндэр-рухавіком Redshift — геаметрыя, матэрыялы, святло.</p>
+            </div>
+            <div class="feat-row">
+              <h4>VFX</h4>
+              <p>Аб'ёмны дым і аблокі — праз Pyro tag з рэндэрам VDB.</p>
+            </div>
+            <div class="feat-row">
+              <h4>AI-рэферэнсы</h4>
+              <p>Візуалы з Midjourney, адаптаваныя пад сцэну на этапе кампазітынгу.</p>
+            </div>
+            <div class="feat-row">
+              <h4>Пост-продакшн</h4>
+              <p>Фінальнае святло, каляракарэкцыя і постапрацоўка.</p>
+            </div>
+          </div>
+          <p style="margin-top:14px;">
+            Blender і Cinema 4D — для мадэлявання, тэкстуравання і пакадравай анімацыі 3D-аб'ектаў
+            і персанажаў, якія потым ідуць альбо ў AI-пайплайн як рэферэнс руху, альбо напрамую
+            ў фінальны монтаж. Unreal Engine 5 — для рэндэра ў рэальным часе: кінематаграфічнае
+            святло, Nanite-геаметрыя і Lumen-асвятленне там, дзе патрэбны фотарэалістычны вынік
+            без доўгіх афлайн-рэндэраў — актуальна для ролікаў і cinematic-крэатыву пад запуск
+            прадукту. Прыклад — сцэна «Betman» вышэй, цалкам пабудаваная і адрэндараная ў UE5.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="split reveal" style="padding:var(--space-xl) 0;">
+    <div class="wrap" style="display:block;">
+      <div class="kicker" style="font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-bottom:18px;">Водгукі</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div style="border:1px dashed var(--border-soft);padding:22px;color:var(--muted-2);font-family:var(--font-mono);font-size:12.5px;">
+          [ водгук кліента з'явіцца тут пасля першага завершанага праекта на гэтым новым партфоліа ]
+        </div>
+        <div style="border:1px dashed var(--border-soft);padding:22px;color:var(--muted-2);font-family:var(--font-mono);font-size:12.5px;">
+          [ зарэзервавана пад водгук — з роляй і кампаніяй, калі кліент дазволіць ]
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="letter reveal">
+    <div class="wrap">
+      <span class="num">04</span>
+      <h2>Адкрыты для праектаў<br>і прапаноў.</h2>
+      <p>
+        Калі патрэбны той, хто аднолькава ўпэўнена працуе і ў motion-дызайне, і ў
+        інжынерыі AI-пайплайнаў — напішыце. Адказваю на працягу дня, абмяркоўваю
+        задачу і сумленна кажу, ці падыходжу.
+      </p>
+      <p class="sign">— да сустрэчы</p>
+      <div class="contact-inline">
+        <a href="mailto:eltikoner@gmail.com">eltikoner@gmail.com</a><span>·</span>
+        <a href="https://t.me/Y_NET3" target="_blank" rel="noopener">Telegram</a><span>·</span>
+        <a href="https://www.linkedin.com/in/yahor-kaminsky-0b2b16238/" target="_blank" rel="noopener">LinkedIn</a><span>·</span>
+        <a href="#">ArtStation</a><span>·</span>
+        <a href="https://www.behance.net/805f56c8" target="_blank" rel="noopener">Behance</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 · AI Content Engineering &amp; Motion Design</p>
+    <div class="footer-links">
+      <a href="services/index.html">Паслугі</a>
+      <a href="blog/index.html">Блог</a>
+      <a href="#contact">Кантакты</a>
+      <a href="https://t.me/Y_NET3" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://www.linkedin.com/in/yahor-kaminsky-0b2b16238/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#">ArtStation</a>
+      <a href="https://www.behance.net/805f56c8" target="_blank" rel="noopener">Behance</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('indexToggle');
+  const overlay = document.getElementById('indexOverlay');
+  const closeBtn = document.getElementById('indexClose');
+  const openOverlay = () => overlay.classList.add('open');
+  const closeOverlay = () => overlay.classList.remove('open');
+  toggle.addEventListener('click', openOverlay);
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.querySelectorAll('[data-close]').forEach(a => a.addEventListener('click', closeOverlay));
+
+  const heroSection = document.getElementById('heroSection');
+  const heroGlow = document.getElementById('heroGlow');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (heroSection && heroGlow && !reduceMotion) {
+    heroSection.addEventListener('pointermove', (e) => {
+      const rect = heroSection.getBoundingClientRect();
+      const mx = ((e.clientX - rect.left) / rect.width) * 100;
+      const my = ((e.clientY - rect.top) / rect.height) * 100;
+      heroGlow.style.setProperty('--mx', mx + '%');
+      heroGlow.style.setProperty('--my', my + '%');
+    });
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('in'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function () {
+  const canvas = document.getElementById('bg3d');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!canvas || reduceMotion || typeof THREE === 'undefined') return;
+
+  const PAPER = 0x050505;
+  const ACCENT = 0xd6ff3f;
+  const ACCENT_2 = 0x8a5cff;
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(PAPER, 0.05);
+
+  const camera = new THREE.PerspectiveCamera(62, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 15);
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(PAPER, 1);
+
+  const isMobile = window.innerWidth < 700;
+  const count = isMobile ? 5 : 9;
+  const group = new THREE.Group();
+  const shapes = [];
+
+  for (let i = 0; i < count; i++) {
+    const geoPick = i % 3;
+    const size = 1.1 + Math.random() * 1.6;
+    let geometry;
+    if (geoPick === 0) geometry = new THREE.IcosahedronGeometry(size, 0);
+    else if (geoPick === 1) geometry = new THREE.TorusKnotGeometry(size * 0.6, size * 0.18, 90, 12);
+    else geometry = new THREE.OctahedronGeometry(size, 0);
+
+    const material = new THREE.MeshBasicMaterial({
+      color: i % 2 === 0 ? ACCENT : ACCENT_2,
+      wireframe: true,
+      transparent: true,
+      opacity: 0.22 + Math.random() * 0.16,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(
+      (Math.random() - 0.5) * 22,
+      (Math.random() - 0.5) * 16,
+      (Math.random() - 0.5) * 24 - 6
+    );
+    mesh.userData.spin = {
+      x: (Math.random() - 0.5) * 0.0025,
+      y: (Math.random() - 0.5) * 0.0035,
+    };
+    group.add(mesh);
+    shapes.push(mesh);
+  }
+  scene.add(group);
+
+  function onResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+  window.addEventListener('resize', onResize);
+
+  const mouse = { x: 0, y: 0 };
+  window.addEventListener('pointermove', (e) => {
+    mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouse.y = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  const scrollState = { progress: 0 };
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    ScrollTrigger.create({
+      trigger: document.body,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
+      onUpdate: (self) => { scrollState.progress = self.progress; },
+    });
+  }
+
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    shapes.forEach((mesh) => {
+      mesh.rotation.x += mesh.userData.spin.x;
+      mesh.rotation.y += mesh.userData.spin.y;
+    });
+    group.position.z = scrollState.progress * 10;
+    group.rotation.y = scrollState.progress * 0.9;
+    camera.position.x += (mouse.x * 0.8 - camera.position.x) * 0.04;
+    camera.position.y += (-mouse.y * 0.5 - camera.position.y) * 0.04;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+</script>
+
+</body>
+</html>
