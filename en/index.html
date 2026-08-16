@@ -132,6 +132,8 @@ h1 em{font-style:italic;color:var(--accent);}
   font-family:var(--font-mono);font-size:12.5px;color:var(--muted-2);
 }
 .hero-tags b{color:var(--muted);font-weight:500;}
+.hero-tags a{color:var(--muted-2);border-bottom:1px solid transparent;transition:color .2s,border-color .2s;}
+.hero-tags a:hover{color:var(--accent);border-color:var(--accent);}
 .tool-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
 .tool-chips .chip{
   font-family:var(--font-mono);font-size:11.5px;color:var(--ink);
@@ -334,7 +336,7 @@ footer .footer-links a:hover{color:var(--accent);}
       </p>
       <hr class="hero-rule">
       <div class="hero-tags">
-        <span><b>Focus —</b> iGaming · Motion Design · AI Pipelines</span>
+        <span><b>Focus —</b> <a href="#igaming">iGaming</a> · <a href="#igaming-motion-design">Motion Design</a> · <a href="#ai-engineering">AI Pipelines</a></span>
       </div>
       <div class="tool-chips">
         <span class="chip">ComfyUI</span>
@@ -479,7 +481,7 @@ footer .footer-links a:hover{color:var(--accent);}
         </div>
       </div>
       <div class="content">
-        <div class="block">
+        <div class="block" id="igaming-motion-design">
           <h3>EVAMOBI — Motion Designer</h3>
           <p class="note" style="margin-bottom:14px;">July 2025 — January 2026 · mobile marketing agency, Betting, Gambling, Fintech, Ed Tech verticals</p>
           <div class="feat-list">
