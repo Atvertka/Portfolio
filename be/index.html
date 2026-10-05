@@ -71,6 +71,10 @@ h1 em{font-style:italic;color:var(--accent);}
 .reel-item{flex:0 0 auto;width:min(760px,86vw);}
 .reel{width:100%;max-width:760px;aspect-ratio:16/9;background:var(--panel);border:1px solid var(--border);position:relative;overflow:hidden;}
 .reel iframe{width:100%;height:100%;border:0;display:block;}
+.reel video{width:100%;height:100%;object-fit:cover;display:block;}
+.reel-row.reel-vertical .reel-item{width:min(300px,78vw);}
+.reel-row.reel-vertical .reel{aspect-ratio:9/16;}
+@media (max-width:900px){.reel-row.reel-vertical .reel-main{order:-1;}}
 .reel .placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted-2);font-family:var(--font-mono);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;}
 .reel-caption{max-width:760px;margin:14px auto 0;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--muted-2);letter-spacing:.04em;}
 .split{border-top:1px solid var(--border);padding:var(--space-2xl) 0;}
@@ -213,12 +217,24 @@ footer .footer-links a:hover{color:var(--accent);}
       </div>
 
       <div class="reel-block">
-        <div class="reel-row">
+        <div class="reel-row reel-vertical">
           <div class="reel-item">
+            <div class="reel">
+              <video src="../media/ai-model-clip-4.mp4" poster="../media/ai-model-clip-4-poster.jpg" autoplay muted loop playsinline controls></video>
+            </div>
+            <div class="reel-caption">AI Fashion — 00:10</div>
+          </div>
+          <div class="reel-item reel-main">
             <div class="reel">
               <iframe src="https://player.vimeo.com/video/1211593334" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="reel-caption">Шоўрыл — 00:49</div>
+          </div>
+          <div class="reel-item">
+            <div class="reel">
+              <video src="../media/ai-model-clip-5.mp4" poster="../media/ai-model-clip-5-poster.jpg" autoplay muted loop playsinline controls></video>
+            </div>
+            <div class="reel-caption">AI UGC — 00:18</div>
           </div>
         </div>
       </div>
@@ -442,12 +458,6 @@ footer .footer-links a:hover{color:var(--accent);}
             </div>
             <div class="clip-item">
               <video src="../media/ai-model-clip-3.mp4" controls muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="clip-item">
-              <video src="../media/ai-model-clip-4.mp4" poster="../media/ai-model-clip-4-poster.jpg" controls muted loop playsinline preload="metadata"></video>
-            </div>
-            <div class="clip-item">
-              <video src="../media/ai-model-clip-5.mp4" poster="../media/ai-model-clip-5-poster.jpg" controls muted loop playsinline preload="metadata"></video>
             </div>
           </div>
           <div class="shot-caption">Відэа-кантэнт таго ж персанажа: анімацыя руху і мімікі з захаваннем ідэнтычнасці паміж кадрамі.</div>
