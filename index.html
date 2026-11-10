@@ -389,6 +389,16 @@ footer .footer-links a:hover{color:var(--accent);}
 }
 #bg3d{position:fixed;inset:0;z-index:-1;display:block;background:var(--paper);}
 
+
+/* Subtle page-edge navigation */
+.edge-scroll{position:fixed;right:22px;top:50%;z-index:65;display:flex;flex-direction:column;gap:6px;padding:5px;border:1px solid var(--border);border-radius:999px;background:rgba(17,17,18,.78);backdrop-filter:blur(10px);box-shadow:0 8px 26px rgba(0,0,0,.22);transform:translateY(-50%);transition:opacity .25s ease,border-color .25s ease;}
+.edge-scroll-button{width:36px;height:36px;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:var(--muted-2);cursor:pointer;transition:color .2s ease,background .2s ease;}
+.edge-scroll-button:hover{color:var(--accent);background:var(--accent-soft);}
+.edge-scroll-button:focus-visible{outline:1px solid var(--accent);outline-offset:2px;}
+.edge-scroll-button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.edge-scroll-button[hidden]{display:none;}
+@media(max-width:700px){.edge-scroll{right:10px;}.edge-scroll-button{width:34px;height:34px;}}
+@media(prefers-reduced-motion:reduce){.edge-scroll,.edge-scroll-button{transition:none;}}
 </style>
 </head>
 <body>
@@ -421,9 +431,21 @@ footer .footer-links a:hover{color:var(--accent);}
     <a href="#gustbot" data-close><span>02</span> GustBot</a>
     <a href="#igaming" data-close><span>03</span> iGaming</a>
     <a href="#ai-engineering" data-close><span>04</span> AI Architecture</a>
-    <a href="blog/index.html"><span>05</span> Блог</a>
-    <a href="#contact" data-close><span>06</span> Контакты</a>
+    <a href="#ai-video-work" data-close><span>05</span> AI-видео и персонажи</a>
+    <a href="#music-app-motion" data-close><span>06</span> Motion · музыкальное приложение</a>
+    <a href="#3d-motion-work" data-close><span>07</span> 3D Motion</a>
+    <a href="blog/index.html"><span>08</span> Блог</a>
+    <a href="#contact" data-close><span>09</span> Контакты</a>
   </nav>
+</div>
+
+<div class="edge-scroll" id="edgeScroll" aria-label="Навигация по странице">
+  <button type="button" class="edge-scroll-button" id="scrollToTop" aria-label="Наверх" title="Наверх">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 14 6-6 6 6"/></svg>
+  </button>
+  <button type="button" class="edge-scroll-button" id="scrollToBottom" aria-label="Вниз" title="Вниз">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 10 6 6 6-6"/></svg>
+  </button>
 </div>
 
 <main id="top">
@@ -694,7 +716,7 @@ footer .footer-links a:hover{color:var(--accent);}
             <img src="media/ai-virtual-model-lookbook.jpg" alt="Серия карточек одного AI-персонажа для лукбука/карусели" loading="lazy">
           </figure>
           <div class="shot-caption">Одна генерация-сессия — устойчивая идентичность лица и тела на всех кадрах, готовый набор карточек для карусели/лукбука.</div>
-          <div class="clip-row" style="margin-top:14px;">
+          <div class="clip-row" id="ai-video-work" style="margin-top:14px;">
             <div class="clip-item">
               <video src="media/ai-model-clip-1.mp4" controls muted loop playsinline preload="metadata"></video>
             </div>
@@ -718,7 +740,7 @@ footer .footer-links a:hover{color:var(--accent);}
             </div>
           </div>
           <div class="shot-caption">AI-видео с персонажами Silena и Mila: визуальные сцены, работа с движением и сохранение целостного образа.</div>
-          <div class="shot-caption" style="margin-top:24px;">Evening Strings · motion-концепт музыкального приложения</div>
+          <div class="shot-caption" id="music-app-motion" style="margin-top:24px;">Evening Strings · motion-концепт музыкального приложения</div>
           <div class="clip-row" style="margin-top:12px;">
             <div class="clip-item" style="width:min(100%,320px);">
               <video src="media/form-motion-final-v2.mp4" controls playsinline preload="metadata" aria-label="Motion-концепт интерфейса музыкального приложения Evening Strings" style="aspect-ratio:4/5;object-fit:contain;background:#090909;"></video>
@@ -736,7 +758,7 @@ footer .footer-links a:hover{color:var(--accent);}
           </div>
         </div>
         <div class="block">
-          <h3>3D-пайплайн: Blender · Cinema 4D · Unreal Engine 5</h3>
+          <h3 id="3d-motion-work">3D-пайплайн: Blender · Cinema 4D · Unreal Engine 5</h3>
           <div class="reel" style="margin:4px 0 16px;">
             <iframe src="https://player.vimeo.com/video/1211600698" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
           </div>
@@ -866,6 +888,26 @@ footer .footer-links a:hover{color:var(--accent);}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(() => {
+  const up = document.getElementById('scrollToTop');
+  const down = document.getElementById('scrollToBottom');
+  if (!up || !down) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const update = () => {
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const y = window.scrollY;
+    up.hidden = y < 120;
+    down.hidden = maxScroll - y < 120;
+  };
+  const scrollTo = (top) => window.scrollTo({ top, behavior: reducedMotion ? 'auto' : 'smooth' });
+  up.addEventListener('click', () => scrollTo(0));
+  down.addEventListener('click', () => scrollTo(document.documentElement.scrollHeight));
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  update();
+})();
+</script>
 <script>
 (function () {
   const canvas = document.getElementById('bg3d');
